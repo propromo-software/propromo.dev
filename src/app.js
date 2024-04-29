@@ -1,11 +1,15 @@
 const HyperExpress = require('hyper-express');
 const webserver = new HyperExpress.Server();
+
 const herokuRouter = require('./v1/heroku');
+const assetRouter = require('./assets');
+const {homeHTML, herokuRouteRoot} = require('./routes.js');
 
 webserver.get('/', (request, response) => {
-    response.send('Development Server');
+    response.html(homeHTML);
 })
 
-webserver.use('/v1/heroku', herokuRouter);
+webserver.use(herokuRouteRoot, herokuRouter);
+webserver.use('', assetRouter);
 
 module.exports = webserver;

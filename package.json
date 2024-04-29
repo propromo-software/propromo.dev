@@ -4,8 +4,10 @@
   "author": "",
   "main": "build/index.js",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "hyper-express": "^6.15.2",
-    "dotenv": "^16.4.5"
+    "jsdom": "^24.0.0",
+    "live-directory": "^3.0.3"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
