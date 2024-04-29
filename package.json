@@ -13,7 +13,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-shell": "^0.4.2",
     "gulp-tsc": "^0.10.1",
-    "gulp-tslint": "^2.0.0",
+    "gulp-tslint": "^8.1.4",
     "mocha": "*",
     "run-sequence": "^1.1.1"
   },
