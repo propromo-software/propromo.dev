@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
-    "gulp": "^3.6.2",
+    "gulp": "^5.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-shell": "^0.4.2",
     "gulp-tsc": "^0.10.1",
