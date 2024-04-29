@@ -1,8 +1,10 @@
 const HyperExpress = require("hyper-express");
 const assetRouter = new HyperExpress.Router();
 const LiveDirectory = require("live-directory");
+require('dotenv').config();
 
-const LiveAssets = new LiveDirectory("./src/static/", {
+const assetPath = process.env.DEV_MODE === "true" ? "./src/static/" : "./build/static/";
+const LiveAssets = new LiveDirectory(assetPath, {
   static: true,
   filter: {
     keep: {

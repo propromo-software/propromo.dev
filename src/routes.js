@@ -2,9 +2,11 @@ const fs = require('node:fs');
 const { JSDOM } = require('jsdom');
 const herokuRouter = require('./v1/heroku');
 const assetRouter = require('./assets');
+require('dotenv').config();
 
 const herokuRouteRoot = "/v1/heroku";
-const homePage = fs.readFileSync('./src/templates/index.html', 'utf8');
+const templatePath = process.env.DEV_MODE === "true" ? "./src/templates/index.html" : "./build/templates/index.html";
+const homePage = fs.readFileSync(templatePath, 'utf8');
 const routes = [...assetRouter.routes, {
     routes: herokuRouter.routes,
     rootPath: herokuRouteRoot

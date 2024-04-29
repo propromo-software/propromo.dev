@@ -7,8 +7,8 @@ const babel = require('gulp-babel');
 const paths = {
   tscripts: { src: ['src/**/*.ts'], dest: 'build' },
   jsscripts: { src: ['src/**/*.js'], dest: 'build' },
-  staticFiles: { src: ['src/templates/**/*'], dest: 'build/src/templates' },
-  staticAssets: { src: ['src/static/**/*'], dest: 'build/src/static' }
+  staticFiles: { src: ['src/templates/**/*'], dest: 'build/templates' },
+  staticAssets: { src: ['src/static/**/*'], dest: 'build/static' }
 };
 
 function defaultTask(cb) {
