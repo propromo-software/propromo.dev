@@ -5,7 +5,6 @@ require('dotenv').config();
 
 herokuRouter.get('/drop-and-create-tables', async (request, response) => {
   const passphrase = request?.headers?.authorization?.split('Bearer ')[1] ?? '';
-  console.log(passphrase, request?.headers);
 
   const validPassphrase = process.env.DEV_ACCESS_PASSPHRASE === passphrase;
 
