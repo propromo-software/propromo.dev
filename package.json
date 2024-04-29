@@ -15,17 +15,14 @@
     "gulp-babel": "^8.0.0",
     "gulp-shell": "^0.8.0",
     "gulp-tsc": "^1.3.2",
-    "gulp-tslint": "^8.1.4",
-    "mocha": "*",
-    "run-sequence": "^2.2.1"
+    "gulp-tslint": "^8.1.4"
   },
   "overrides": {
     "graceful-fs": "^4.2.11"
   },
   "scripts": {
-    "main": "gulp buildrun",
+    "app": "gulp buildrun",
     "build": "gulp build",
-    "test": "gulp build && mocha",
     "watch": "gulp watch"
   }
 }

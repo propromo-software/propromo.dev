@@ -4,7 +4,7 @@ const herokuRouter = require('./v1/heroku');
 const assetRouter = require('./assets');
 
 const herokuRouteRoot = "/v1/heroku";
-const homePage = fs.readFileSync('./src/index.html', 'utf8');
+const homePage = fs.readFileSync('./src/templates/index.html', 'utf8');
 const routes = [...assetRouter.routes, {
     routes: herokuRouter.routes,
     rootPath: herokuRouteRoot

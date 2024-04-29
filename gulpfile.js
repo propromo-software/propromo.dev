@@ -1,12 +1,14 @@
-var gulp = require('gulp');
-var tsc = require('gulp-tsc');
-var shell = require('gulp-shell');
-var tslint = require('gulp-tslint');
-var babel = require('gulp-babel');
+const gulp = require('gulp');
+const tsc = require('gulp-tsc');
+const shell = require('gulp-shell');
+const tslint = require('gulp-tslint');
+const babel = require('gulp-babel');
 
-var paths = {
+const paths = {
   tscripts: { src: ['src/**/*.ts'], dest: 'build' },
   jsscripts: { src: ['src/**/*.js'], dest: 'build' },
+  staticFiles: { src: ['src/templates/**/*'], dest: 'build/src/templates' },
+  staticAssets: { src: ['src/static/**/*'], dest: 'build/src/static' }
 };
 
 function defaultTask(cb) {
@@ -15,10 +17,11 @@ function defaultTask(cb) {
 
 // ** Running ** //
 
-function runTask() {
-  return shell.task([
+function runTask(cb) {
+  shell.task([
     'node build/index.js'
-  ]);
+  ])();
+  cb();
 }
 
 function buildrunTask(cb) {
@@ -38,11 +41,11 @@ function watchrunTask() {
 // ** Compilation ** //
 
 function buildTask(cb) {
-  gulp.series(compileTypescriptTask, compileJavascriptTask)(cb);
+  gulp.series(compileTypescriptTask, compileJavascriptTask, copyStaticTask)(cb);
 }
 
 function compileTask(cb) {
-  gulp.series(compileTypescriptTask, compileJavascriptTask)(cb);
+  gulp.series(compileTypescriptTask, compileJavascriptTask, copyStaticTask)(cb);
 }
 
 function compileTypescriptTask() {
@@ -62,6 +65,24 @@ function compileJavascriptTask() {
     .pipe(gulp.dest(paths.jsscripts.dest));
 }
 
+function copyStaticTask(cb) {
+  return gulp.parallel(
+    copyStaticFiles,
+    copyStaticAssets
+  )(cb);
+}
+
+function copyStaticFiles() {
+  return gulp
+    .src(paths.staticFiles.src)
+    .pipe(gulp.dest(paths.staticFiles.dest));
+}
+
+function copyStaticAssets() {
+  return gulp
+    .src(paths.staticAssets.src)
+    .pipe(gulp.dest(paths.staticAssets.dest));
+}
 // ** Linting ** //
 
 function lintTask() {
