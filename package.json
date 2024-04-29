@@ -4,10 +4,13 @@
   "author": "",
   "main": "build/index.js",
   "dependencies": {
-    "hyper-express": "^6.15.2"
+    "hyper-express": "^6.15.2",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
+    "@types/node": "^20.12.7",
     "gulp": "^3.6.2",
+    "gulp-babel": "^8.0.0",
     "gulp-shell": "^0.4.2",
     "gulp-tsc": "^0.10.1",
     "gulp-tslint": "^2.0.0",
@@ -19,6 +22,7 @@
   },
   "scripts": {
     "main": "gulp buildrun",
+    "build": "gulp build",
     "test": "gulp build && mocha",
     "watch": "gulp watch"
   }
