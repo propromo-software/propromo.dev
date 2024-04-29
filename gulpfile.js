@@ -1,70 +1,81 @@
-var gulp   = require('gulp');
-var tsc    = require('gulp-tsc');
-var shell  = require('gulp-shell');
-var runseq = require('run-sequence');
+var gulp = require('gulp');
+var tsc = require('gulp-tsc');
+var shell = require('gulp-shell');
 var tslint = require('gulp-tslint');
-var babel  = require('gulp-babel');
+var babel = require('gulp-babel');
 
 var paths = {
-  tscripts : { src : ['src/**/*.ts'],
-    dest: 'build'
-  },
-  jsscripts: {
-    src: ['src/**/*.js'],
-    dest: 'build'
-  }
+  tscripts: { src: ['src/**/*.ts'], dest: 'build' },
+  jsscripts: { src: ['src/**/*.js'], dest: 'build' },
 };
 
-gulp.task('default', ['lint', 'buildrun']);
+function defaultTask(cb) {
+  gulp.series('lint', buildrunTask)(cb);
+}
 
 // ** Running ** //
 
-gulp.task('run', shell.task([
-  'node build/index.js'
-]));
+function runTask() {
+  return shell.task([
+    'node build/index.js'
+  ]);
+}
 
-gulp.task('buildrun', function (cb) {
-  runseq('build', 'run', cb);
-});
+function buildrunTask(cb) {
+  gulp.series('build', runTask)(cb);
+}
 
 // ** Watching ** //
 
-gulp.task('watch', function () {
-  gulp.watch(paths.tscripts.src, ['compile']);
-});
+function watchTask() {
+  gulp.watch(paths.tscripts.src, compileTask);
+}
 
-gulp.task('watchrun', function () {
-  gulp.watch(paths.tscripts.src, runseq('compile', 'run'));
-});
+function watchrunTask() {
+  gulp.watch(paths.tscripts.src, gulp.series(compileTask, runTask));
+}
 
 // ** Compilation ** //
 
-gulp.task('build', ['compile']);
-gulp.task('compile', ['compile:typescript', 'compile:javascript']);
-gulp.task('compile:typescript', function () {
-  return gulp
-  .src(paths.tscripts.src)
-  .pipe(tsc({
-    module: "commonjs",
-    emitError: false
-  }))
-  .pipe(gulp.dest(paths.tscripts.dest));
-});
+function buildTask(cb) {
+  gulp.series(compileTypescriptTask, compileJavascriptTask)(cb);
+}
 
-gulp.task('compile:javascript', function () {
+function compileTask(cb) {
+  gulp.series(compileTypescriptTask, compileJavascriptTask)(cb);
+}
+
+function compileTypescriptTask() {
+  return gulp
+    .src(paths.tscripts.src)
+    .pipe(tsc({
+      module: "commonjs",
+      emitError: false
+    }))
+    .pipe(gulp.dest(paths.tscripts.dest));
+}
+
+function compileJavascriptTask() {
   return gulp
     .src(paths.jsscripts.src)
     .pipe(babel())
     .pipe(gulp.dest(paths.jsscripts.dest));
-});
+}
 
 // ** Linting ** //
 
-gulp.task('lint', ['lint:default']);
-gulp.task('lint:default', function(){
-      return gulp.src(paths.tscripts.src)
-        .pipe(tslint())
-        .pipe(tslint.report('prose', {
-          emitError: false
-        }));
-});
+function lintTask() {
+  return gulp.src(paths.tscripts.src)
+    .pipe(tslint())
+    .pipe(tslint.report('prose', {
+      emitError: false
+    }));
+}
+
+exports.default = defaultTask;
+exports.lint = lintTask;
+exports.compile = compileTask;
+exports.build = buildTask;
+exports.buildrun = buildrunTask;
+exports.watch = watchTask;
+exports.watchrun = watchrunTask;

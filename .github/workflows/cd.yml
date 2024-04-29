@@ -48,6 +48,6 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            propromo/rest-microservice:latest
-            ghcr.io/${{ github.repository_owner }}/propromo-rest-microservice:latest
-            registry.cloud.htl-leonding.ac.at/j.froeller/rest-microservice:latest
+            propromo/development-server:latest
+            ghcr.io/${{ github.repository_owner }}/propromo-development-server:latest
+            registry.cloud.htl-leonding.ac.at/j.froeller/development-server:latest
