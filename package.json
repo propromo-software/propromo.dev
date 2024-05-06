@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "hyper-express": "^6.16.0",
+    "hyper-express": "^6.16.1",
     "jsdom": "^24.0.0",
     "live-directory": "^3.0.3"
   },
