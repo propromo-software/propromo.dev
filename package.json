@@ -6,7 +6,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "hyper-express": "^6.16.4",
-    "jsdom": "^24.1.0",
+    "jsdom": "^24.1.1",
     "live-directory": "^3.0.3"
   },
   "devDependencies": {
