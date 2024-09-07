@@ -33,12 +33,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Login to Leo Cloud Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: registry.cloud.htl-leonding.ac.at
-          username: ${{ secrets.LEOCLOUD_EMAIL }}
-          password: ${{ secrets.LEOCLOUD_PASSWORD }}
+#      - name: Login to Leo Cloud Container Registry
+#        uses: docker/login-action@v3
+#        with:
+#          registry: registry.cloud.htl-leonding.ac.at
+#          username: ${{ secrets.LEOCLOUD_EMAIL }}
+#          password: ${{ secrets.LEOCLOUD_PASSWORD }}
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -50,4 +50,4 @@ jobs:
           tags: |
             propromo/development-server:latest
             ghcr.io/${{ github.repository_owner }}/propromo-development-server:latest
-            registry.cloud.htl-leonding.ac.at/j.froeller/development-server:latest
+#            registry.cloud.htl-leonding.ac.at/j.froeller/development-server:latest
